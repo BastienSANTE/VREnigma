@@ -7,6 +7,7 @@ public class TestWeightScale : MonoBehaviour
     [SerializeField] private TMP_Text _weightDisplayText;
     [SerializeField] private float _targetWeight;
     [SerializeField] private float _maxVelocity;
+    [SerializeField] private GameManager _GM;
     
     private List<GameObject> _objectsOnScale, _stillObjects;
     private Rigidbody _checkRB;
@@ -53,9 +54,12 @@ public class TestWeightScale : MonoBehaviour
             _checkRB = obj.GetComponent<Rigidbody>();
             _currentWeight += _checkRB.mass;
         }
-        
+
         if (_currentWeight == _targetWeight)
+        {
             Debug.Log("Weight is the same as the target");
+            _GM.Win();
+        }
     }
     
     private void OnTriggerEnter(Collider other)
