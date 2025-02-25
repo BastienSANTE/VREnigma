@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Keypad : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class Keypad : MonoBehaviour
     
     [SerializeField] private TMP_Text _inputText;
     [SerializeField] private string _keypadInput;
-    [SerializeField] private Animator _doorAnimator;
+    [SerializeField] private GameObject _door;
+    public UnityEvent OnValidCode;
     
     // Update is called once per frame
     void Update()
@@ -25,18 +27,12 @@ public class Keypad : MonoBehaviour
     {
         if (keypadCode.ToString() == _keypadInput)
         {
-            Debug.Log("YOOOOO");
-            LaunchAnimation();
+            OnValidCode?.Invoke();
         }
     }
 
     public void ResetInput()
     {
         _keypadInput = "";
-    }
-
-    public void LaunchAnimation()
-    {
-        _doorAnimator.SetTrigger("Open");
     }
 }
